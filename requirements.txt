@@ -1,0 +1,13 @@
+# PDF Adjective Counter - Required Dependencies
+# Install with: pip install -r requirements.txt
+
+# Core dependencies
+pandas>=2.0.0,<3.0.0        # Data analysis and Excel export
+PyPDF2>=3.0.0               # PDF text extraction
+XlsxWriter>=3.0.0           # Excel file generation
+
+# Optional but recommended for better PDF handling
+pdfminer.six>=20231228      # Alternative PDF extraction (better for complex PDFs)
+openpyxl>=3.0.0            # Alternative Excel engine
+
+# Note: Python 3.7+ required

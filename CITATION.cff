@@ -1,0 +1,35 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "PDF Adjective Counter for AI-Generated Content Detection"
+version: 1.1.0
+date-released: 2024-01-01
+url: "https://github.com/yourusername/pdf-adjective-counter"
+authors:
+  - family-names: "LastName"           # Update with your last name
+    given-names: "FirstName"            # Update with your first name
+    orcid: "https://orcid.org/0000-0000-0000-0000"  # Update with your ORCID
+    affiliation: "Your Institution"     # Update with your institution
+    email: "your.email@institution.edu" # Update with your email
+  # Add additional authors as needed:
+  # - family-names: "LastName2"
+  #   given-names: "FirstName2"
+  #   affiliation: "Institution2"
+keywords:
+  - AI detection
+  - academic integrity
+  - natural language processing
+  - PDF analysis
+  - adjective frequency
+  - otolaryngology
+  - medical literature
+license: MIT
+preferred-citation:
+  type: article
+  authors:
+    - family-names: "LastName"
+      given-names: "FirstName"
+  title: "Detection of AI-Generated Content in Otolaryngology Literature Using Adjective Frequency Analysis"
+  journal: "Journal Name"
+  year: 2024
+  doi: "10.xxxx/xxxxx"  # Update with your paper's DOI
+  url: "https://doi.org/10.xxxx/xxxxx"
