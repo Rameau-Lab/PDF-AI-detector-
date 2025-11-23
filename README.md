@@ -10,24 +10,16 @@ A research tool for detecting potential AI-generated text in academic PDFs by an
 
 ## Installation
 ```bash
-git clone https://github.com/yourusername/pdf-adjective-counter.git
-cd pdf-adjective-counter
+git clone https://github.com/yourusername/PDF-AI-detector.git
+cd PDF-AI-detector
 pip install -r requirements.txt
 ```
 
 ## Usage
 
-Edit paths at the top of the script:
-
-```python
-INPUT_PATHS = ["path/to/pdfs"]
-OUTPUT_FILE = "results.xlsx"
-EXCLUDE_REFERENCES = True
-```
-
-Edit adjectives.txt file to change/add any search terms by 
-
-Run:
+1. Once you've completed installation, navigate to ./input_pdfs folder, drag and drop pdfs for analysis. 
+2. Optional: edit adjectives.txt file to change/add/remove any search terms
+3. Run:
 
 ```bash
 python3 pdf_adjective_counter.py
@@ -35,7 +27,7 @@ python3 pdf_adjective_counter.py
 
 ## Output
 
-The script generates an Excel file with:
+The script generates an Excel file named results.xlxs with:
 
 ### Sheet 1 – Results
 
