@@ -44,6 +44,9 @@ EXCLUDE_REFERENCES = True     # remove references section
 VERBOSE = True                # detailed terminal output
 OUTPUT_FILE = "results.xlsx"  # path to results file
 ```
+## Methodology Clarification
+
+This code was used for adjective-frequency extraction step described in the Methods. Subsequent analyses were performed using the output Excel file.
 
 ## Associated Publication
 An Evaluation of Current Trends in AI-Generated Text in Otolaryngology Publications.
