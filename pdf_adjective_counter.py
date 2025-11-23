@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 1. Download/Clone this Repository/Folder. 
-2. Drag your PDFs into the PDFs folder.  
+2. Drag your PDFs or folder of PDFs into the input_pdfs folder.  
 3. Optional: Add/remove adjectives list in adjectives.txt file. 
 4. Run this file: python3 pdf_adjective_counter.py. 
 5. This will generate output file- results.xlsx. 
@@ -249,8 +249,7 @@ def count_adjectives(text: str, adjectives: List[str]) -> Tuple[Dict[str, int], 
 
 def iter_pdf_files(input_path: str) -> Iterable[Tuple[str, str]]:
     """
-    Iterate over PDF files in path.
-    Yields (folder_name, pdf_path) tuples.
+    Iterate over PDF files
     """
     input_path = os.path.abspath(os.path.expanduser(input_path))
     
@@ -260,17 +259,22 @@ def iter_pdf_files(input_path: str) -> Iterable[Tuple[str, str]]:
         yield (folder, input_path)
         return
     
-    # Directory of PDFs
+    # Directory of PDFs (including all subfolders)
     if os.path.isdir(input_path):
-        folder_name = os.path.basename(input_path) or os.path.basename(os.getcwd())
-        files = sorted(
-            [f for f in os.listdir(input_path) if f.lower().endswith(".pdf")],
-            key=natural_sort_key
-        )
-        
-        for filename in files:
-            yield (folder_name, os.path.join(input_path, filename))
+        # Walk through input_path and all its subdirectories
+        for root, dirs, files in os.walk(input_path):
+            # Use the last part of the folder path as the "Folder" label
+            folder_name = os.path.basename(root) or os.path.basename(input_path)
+
+            pdf_files = sorted(
+                [f for f in files if f.lower().endswith(".pdf")],
+                key=natural_sort_key
+            )
+
+            for filename in pdf_files:
+                yield (folder_name, os.path.join(root, filename))
         return
+
     
     raise FileNotFoundError(f"Path not found or not a PDF/folder: {input_path}")
 
