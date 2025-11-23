@@ -17,7 +17,7 @@ pip install -r requirements.txt
 
 ## Usage
 
-1. Once you've completed installation, navigate to ./input_pdfs folder, drag and drop pdfs for analysis. 
+1. Once you've completed installation, drag and drop your individual pdfs or folders of pdfs into the "input_pdfs" folder,
 2. Optional: edit adjectives.txt file to change/add/remove any search terms
 3. Run:
 
