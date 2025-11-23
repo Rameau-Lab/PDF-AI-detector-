@@ -1,31 +1,17 @@
 #!/usr/bin/env python3
 """
-PDF Adjective Counter for AI-Generated Content Detection
-=========================================================
-Version: 1.1.0
-License: MIT
+1. Download/Clone this Repository/Folder. 
+2. Drag your PDFs into the PDFs folder.  
+3. Optional: Add/remove adjectives list in adjectives.txt file. 
+4. Run this file: python3 pdf_adjective_counter.py. 
+5. This will generate output file- results.xlsx. 
 
-A research tool for detecting potential AI-generated content in academic 
-literature by analyzing adjective frequency patterns.
-
-USAGE OPTIONS:
---------------
-Option 1 - Simple Mode (Edit and Run):
-    1. Edit USER SETTINGS below
-    2. Run: python3 pdf_adjective_counter.py
-
-Option 2 - Command Line Interface:
-    python3 pdf_adjective_counter.py /path/to/pdfs -o results.xlsx
-    python3 pdf_adjective_counter.py --help  # for all options
-
-For academic usage and methodology, see METHODOLOGY.md
 """
 
 import os
 import re
 import sys
 import time
-import argparse
 from datetime import datetime
 from typing import Dict, List, Tuple, Iterable, Optional
 
@@ -37,23 +23,15 @@ except ImportError as e:
     print("Please install requirements: pip install -r requirements.txt")
     sys.exit(1)
 
-# ========= USER SETTINGS (EDIT THESE FOR SIMPLE MODE) ========================
-# If you prefer not to use command line arguments, just edit these settings
-# and run the script directly: python3 pdf_adjective_counter.py
-
-INPUT_PATHS = [
-    # "/path/to/a/folder",
-    # "/path/to/another/folder", 
-    # "/path/to/single.pdf",
-]  # <-- enter your folder or file paths here (comma-separated if multiple)
-
-OUTPUT_FILE = "results.xlsx"  # <-- output Excel file (can be relative or absolute path)
+# ========= Input/Output SETTINGS ========================
+INPUT_PATHS = ["./input_pdfs"]
+OUTPUT_FILE = "results.xlsx"
 EXCLUDE_REFERENCES = True  # set to False to count within references/appendices
 VERBOSE = True  # set to False for quiet mode
 
 # ========= END USER SETTINGS ==================================================
 
-# Default adjectives identified as AI indicators
+# Default adjectives we identified as AI indicators
 DEFAULT_ADJECTIVES = [
     "commendable","innovative","meticulous","intricate","notable",
     "versatile","noteworthy","invaluable","pivotal","potent",
@@ -435,123 +413,56 @@ def export_to_excel(results: List, output_file: str, adjectives: List[str]):
     logger.log(f"  • {len(stats_df)} folder(s) processed")
 
 # ==============================================================================
-# COMMAND LINE INTERFACE
-# ==============================================================================
-
-def parse_arguments():
-    """Parse command line arguments."""
-    parser = argparse.ArgumentParser(
-        description="Detect potential AI-generated content in PDFs by analyzing adjective frequencies",
-        epilog="For simple mode, edit the script's USER SETTINGS and run without arguments."
-    )
-    
-    parser.add_argument(
-        "input",
-        nargs="*",
-        help="PDF files or directories to analyze"
-    )
-    
-    parser.add_argument(
-        "-o", "--output",
-        default="results.xlsx",
-        help="Output Excel file (default: results.xlsx)"
-    )
-    
-    parser.add_argument(
-        "--include-refs",
-        action="store_true",
-        help="Include references/appendices in analysis"
-    )
-    
-    parser.add_argument(
-        "--adjectives",
-        default="adjectives.txt",
-        help="File containing custom adjectives (default: adjectives.txt)"
-    )
-    
-    parser.add_argument(
-        "-q", "--quiet",
-        action="store_true",
-        help="Suppress progress messages"
-    )
-    
-    parser.add_argument(
-        "-v", "--version",
-        action="version",
-        version=f"%(prog)s {__version__}"
-    )
-    
-    return parser.parse_args()
-
-# ==============================================================================
 # MAIN ENTRY POINT
 # ==============================================================================
 
 def main():
-    """Main entry point for the script."""
+    """Main entry point for the script (simple mode only)."""
     global logger
-    
-    # Decide whether we're in CLI mode or simple mode
-    if len(sys.argv) > 1:
-        # CLI mode
-        args = parse_arguments()
-        
-        # Configure from CLI arguments
-        input_paths = args.input
-        output_file = args.output
-        exclude_refs = not args.include_refs
-        adjectives_file = args.adjectives
-        verbose = not args.quiet
-        
-        if not input_paths:
-            print("Error: No input paths provided.")
-            print("Usage: python pdf_adjective_counter.py /path/to/pdfs -o results.xlsx")
-            sys.exit(1)
-    else:
-        # Simple mode - use settings from top of file
-        input_paths = INPUT_PATHS
-        output_file = OUTPUT_FILE
-        exclude_refs = EXCLUDE_REFERENCES
-        adjectives_file = "adjectives.txt"
-        verbose = VERBOSE
-        
-        if not input_paths:
-            print("\n" + "="*60)
-            print("ERROR: No input paths configured!")
-            print("="*60)
-            print("\nPlease edit the USER SETTINGS at the top of this script:")
-            print("  1. Open pdf_adjective_counter.py in a text editor")
-            print("  2. Set INPUT_PATHS to your PDF folder(s)")
-            print("  3. Set OUTPUT_FILE to where you want results saved")
-            print("  4. Run: python3 pdf_adjective_counter.py")
-            print("\nAlternatively, use command line mode:")
-            print("  python3 pdf_adjective_counter.py /path/to/pdfs -o results.xlsx")
-            print("="*60 + "\n")
-            sys.exit(1)
-    
+
+    # Use USER SETTINGS from the top of the file
+    input_paths = INPUT_PATHS
+    output_file = OUTPUT_FILE
+    exclude_refs = EXCLUDE_REFERENCES
+    adjectives_file = "adjectives.txt"  # or change this if you want a different default
+    verbose = VERBOSE
+
+    if not input_paths:
+        print("\n" + "=" * 60)
+        print("ERROR: No input paths configured!")
+        print("=" * 60)
+        print("\nPlease edit the USER SETTINGS at the top of this script:")
+        print("  1. Open pdf_adjective_counter.py in a text editor")
+        print("  2. Set INPUT_PATHS to your PDF folder(s) or file(s)")
+        print("  3. Set OUTPUT_FILE to where you want results saved")
+        print("  4. Run: python3 pdf_adjective_counter.py")
+        print("\nExample:")
+        print("  INPUT_PATHS = [\"/Users/you/Documents/papers\"]")
+        print("  OUTPUT_FILE = \"results.xlsx\"")
+        print("=" * 60 + "\n")
+        sys.exit(1)
+
     # Update logger verbosity
     logger = Logger(verbose)
-    
-    # Print header
-    logger.log("="*60)
+
+    # Header
+    logger.log("=" * 60)
     logger.log("PDF Adjective Counter for AI Detection")
-    logger.log(f"Version {__version__}")
-    logger.log("="*60)
-    
-    # Ensure output file has .xlsx extension
+    logger.log("=" * 60)
+
+    # Ensure output has .xlsx extension
     if not output_file.lower().endswith(".xlsx"):
         output_file += ".xlsx"
-    
-    # Load adjectives
+
+    # Load adjectives (from adjectives.txt if present, otherwise defaults)
     adjectives = load_adjectives_from_file(adjectives_file)
-    
+
     # Process PDFs
     results = process_pdfs(input_paths, adjectives, exclude_refs)
-    
+
     if results:
-        # Export to Excel
         export_to_excel(results, output_file, adjectives)
-        logger.log("="*60)
+        logger.log("=" * 60)
         logger.success("Analysis complete!")
     else:
         logger.error("No results to export.")
