@@ -17,8 +17,6 @@ pip install -r requirements.txt
 
 ## Usage
 
-### Simple Mode (edit-and-run)
-
 Edit paths at the top of the script:
 
 ```python
@@ -27,36 +25,12 @@ OUTPUT_FILE = "results.xlsx"
 EXCLUDE_REFERENCES = True
 ```
 
+Edit adjectives.txt file to change/add any search terms by 
+
 Run:
 
 ```bash
 python3 pdf_adjective_counter.py
-```
-
-### CLI Mode
-
-Analyze a file:
-
-```bash
-python3 pdf_adjective_counter.py article.pdf -o results.xlsx
-```
-
-Analyze a folder:
-
-```bash
-python3 pdf_adjective_counter.py papers/ -o results.xlsx
-```
-
-Include references:
-
-```bash
-python3 pdf_adjective_counter.py papers/ --include-refs
-```
-
-Use custom adjective list:
-
-```bash
-python3 pdf_adjective_counter.py papers/ --adjectives adjectives.txt
 ```
 
 ## Output
